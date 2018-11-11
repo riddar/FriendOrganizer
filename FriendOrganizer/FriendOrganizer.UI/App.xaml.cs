@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Autofac;
 using FriendOrganizer.UI.Startup;
 
@@ -13,6 +14,13 @@ namespace FriendOrganizer.UI
 			var container = boostrapper.Boostrap();
 			var mainWindow = container.Resolve<MainWindow>();
 			MainWindow.Show();
+		}
+
+		private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+		{
+			MessageBox.Show("Unexpected Error occured."
+				+ Environment.newLine + e.Exception, "Unexpected error");
+			e.Handled = true;
 		}
 	}
 }
